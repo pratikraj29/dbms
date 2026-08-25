@@ -1,0 +1,101 @@
+1. Write a query to display the current date along with the current system time in 24 hour format.
+
+SELECT TO_CHAR(SYSDATE, 'DD-MON-YYYY HH24:MI:SS') AS CURRENT_DATE_TIME
+FROM DUAL;
+
+
+2. Display the employee number, employee name, salary and salary increased by 15% expressed as a whole number. Label the column as "new Salary".
+
+SELECT EMPNO, ENAME, SAL,
+       ROUND(SAL * 1.15) AS "new Salary"
+FROM EMP;
+
+
+3. Modify the previous query that will subtract the old salary from new salary with a new column name as increase.
+
+SELECT EMPNO, ENAME, SAL,
+       ROUND(SAL * 1.15) AS "new Salary",
+       ROUND(SAL * 1.15) - SAL AS INCREASE
+FROM EMP;
+
+
+4. Display the employee name, hire date and the day of the week on which the employee started.
+
+SELECT ENAME, HIREDATE,
+       TO_CHAR(HIREDATE, 'DAY') AS DAY_OF_WEEK
+FROM EMP;
+
+
+5. Display the name and hire date of every employee who was hired in 1982.
+
+SELECT ENAME, HIREDATE
+FROM EMP
+WHERE EXTRACT(YEAR FROM HIREDATE) = 1982;
+
+
+6. Display the employee name concatenated with their job for all employees.
+
+SELECT ENAME || ' ' || JOB AS EMPLOYEE_JOB
+FROM EMP;
+
+
+7. List employee names, department no & salary drawn by all employees in the format “Employee SMITH works in Department no. 20 and earns Rs.800 per month as salary”
+
+SELECT 'Employee ' || ENAME ||
+       ' works in Department no. ' || DEPTNO ||
+       ' and earns Rs.' || SAL ||
+       ' per month as salary' AS EMPLOYEE_DETAILS
+FROM EMP;
+
+
+8. Display the employee name and hire date for all employees. The hire date appears as 17 November 1981.
+
+SELECT ENAME,
+       TO_CHAR(HIREDATE, 'DD Month YYYY') AS HIRE_DATE
+FROM EMP;
+
+
+9. Display the employee name with initial two letters of name in uppercase.
+
+SELECT UPPER(SUBSTR(ENAME, 1, 2)) || LOWER(SUBSTR(ENAME, 3)) AS EMPLOYEE_NAME
+FROM EMP;
+
+
+10. Display the employee names who have exactly one 'T' in their names.
+
+SELECT ENAME
+FROM EMP
+WHERE UPPER(ENAME) LIKE '%T%'
+AND UPPER(ENAME) NOT LIKE '%T%T%';
+
+
+11. Display the experience of all managers in years.
+
+SELECT ENAME,
+       TRUNC(MONTHS_BETWEEN(SYSDATE, HIREDATE) / 12) AS EXPERIENCE_YEARS
+FROM EMP
+WHERE JOB = 'MANAGER';
+
+
+12. Display the details of the first tuple in EMP table.
+
+SELECT *
+FROM EMP
+WHERE ROWNUM = 1;
+
+
+13. Display the highest row number in EMP table.
+
+SELECT COUNT(*) AS HIGHEST_ROW_NUMBER
+FROM EMP;
+
+
+14. Display the names and salaries of the two highest salary getters in the EMP table.
+
+SELECT ENAME, SAL
+FROM (
+    SELECT ENAME, SAL
+    FROM EMP
+    ORDER BY SAL DESC
+)
+WHERE ROWNUM <= 2;
