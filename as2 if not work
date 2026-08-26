@@ -1,0 +1,57 @@
+-- 1
+SELECT * FROM emp;
+
+-- 2
+SELECT ename, sal * 12 AS annual_salary FROM emp;
+
+-- 3
+SELECT ename FROM emp
+WHERE hiredate > TO_DATE('19-APR-1987', 'DD-MON-YYYY');
+
+-- 4
+SELECT DISTINCT job FROM emp;
+
+-- 5
+SELECT * FROM emp WHERE job = 'CLERK';
+
+-- 6
+SELECT empno, ename, job, deptno
+FROM emp
+WHERE ename = 'JAMES';
+
+-- 7
+SELECT ename FROM emp
+WHERE ename LIKE '_A%';
+
+-- 8
+SELECT * FROM emp
+WHERE mgr IS NULL;
+
+-- 9
+SELECT * FROM emp
+WHERE job = 'CLERK' AND sal > 1100;
+
+-- 10
+SELECT ename, deptno FROM emp
+WHERE deptno IN (10, 30)
+ORDER BY ename;
+
+-- 11
+SELECT ename, sal FROM emp
+WHERE sal > 1500 AND deptno IN (10, 30);
+
+-- 12
+SELECT ename, sal, comm FROM emp
+WHERE comm IS NOT NULL
+ORDER BY sal DESC;
+
+-- 13
+SELECT ename FROM emp
+WHERE ename LIKE '%LL%';
+
+-- 14
+SELECT SYSDATE FROM dual;
+
+-- 15
+SELECT LOWER(ename) AS name, LENGTH(ename) AS name_length
+FROM emp;
